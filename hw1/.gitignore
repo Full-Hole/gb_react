@@ -24,4 +24,6 @@ yarn-error.log*
 
 /src/reportWebVitals.js
 /src/logo.svg
-
+/public/logo192.png
+/public/logo512.png
+README.md
