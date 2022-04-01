@@ -1,6 +1,6 @@
 const Message =({data})=>{
     return (
-    <div className="message-wrapper">
+    <div className={data.author == 'bot'? 'message-wrapper bot-message' : "message-wrapper"}>
         <div className="message-author">{data.author}</div>
         <div className="message-text">{data.text}</div>
     </div>

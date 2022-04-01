@@ -53,14 +53,18 @@
 }
 .message-list{
   background-color: aliceblue;
-  width: 400px;
+  width: 600px;
   border: 1px solid black;
   max-height: 600px;
   overflow: auto;
 }
 .message-wrapper{
+  max-width: 350px;
   border-style: groove;
     margin: 10px;
+    border-radius: 15px;
+    background-color: #75e4f345;
+    margin: 10px 10px 10px auto;
 }
 .message-author {
   font-style: italic;
@@ -70,5 +74,9 @@
 }
 .message-text{
   word-wrap: break-word;
+  font-size: 12pt;
+}
+.bot-message{
+  margin: 10px auto 10px 10px;
 }
 

@@ -1,6 +1,4 @@
-import {
-  useState
-} from 'react';
+import {useEffect,  useState} from 'react';
 import Message from './Message';
 import './App.css';
 
@@ -15,6 +13,25 @@ function App() {
     //console.log(e);
     addMessage(e.target.author.value, e.target.text.value);
   }
+  const bot =() => {
+    let text = 'Спасибо за отзыв';
+    if(messageList.length){
+    if(messageList[messageList.length-1].author != 'bot'){
+      addMessage('bot', text);
+    }
+  }
+  }
+  const getLastMessageAuthor = () => {
+    return messageList[messageList.length-1].author
+  }
+  useEffect(() => {
+    let timerId = setTimeout(bot,1500);
+    return ()=>{
+      clearTimeout(timerId);
+    }
+  })
+
+  
 
   return (
     <div className="App">
