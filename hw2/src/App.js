@@ -3,26 +3,29 @@ import Message from './Message';
 import './App.css';
 
 function App() {
-  const [messageList, setMessage] = useState([]);
+  const [messageList, setMessageList] = useState([]);
+  const [message, setMessage] = useState([]);
+  const AUTHOR = {default: 'Guest', bot: 'Bot', me: ''};
   //{ author: '', text: ''}
   function addMessage(author, text) {
-    setMessage([...messageList, { author: author, text: text}])
+    setMessageList([...messageList, { author: author, text: text}])
+  }
+
+  const handleMessageInput =(e) =>{
+    setMessage(e.target.value);
   }
   const submitForm = (e) => {
     e.preventDefault();
     //console.log(e);
-    addMessage(e.target.author.value, e.target.text.value);
+    addMessage(AUTHOR.me ? AUTHOR.me : AUTHOR.default, message);
   }
   const bot =() => {
     let text = 'Спасибо за отзыв';
     if(messageList.length){
-    if(messageList[messageList.length-1].author != 'bot'){
-      addMessage('bot', text);
+    if(messageList[messageList.length-1].author !== AUTHOR.bot){
+      addMessage(AUTHOR.bot, text);
     }
   }
-  }
-  const getLastMessageAuthor = () => {
-    return messageList[messageList.length-1].author
   }
   useEffect(() => {
     let timerId = setTimeout(bot,1500);
@@ -37,11 +40,10 @@ function App() {
     <div className="App">
       <div className='main-container'>
         <div className="message-list">
-          {messageList.map((message)=> (<Message data={message}/>))}
+          {messageList.map((singlemessage)=> (<Message data={singlemessage}/>))}
         </div>
         <form className="messageForm" onSubmit={submitForm}>                
-          <label htmlFor="author">Автор: </label><input type="text" name="author" id="author"/>
-          <label htmlFor="text">Сообщение: </label><textarea name="text" id="text"></textarea>
+          <label htmlFor="text">Сообщение: </label><textarea name="text" id="text"  onChange={handleMessageInput}></textarea>
       
           <button>Click me!</button>
         </form>
