@@ -17,7 +17,12 @@ function App() {
   const submitForm = (e) => {
     e.preventDefault();
     //console.log(e);
-    addMessage(AUTHOR.me ? AUTHOR.me : AUTHOR.default, message);
+    if(message){
+      addMessage(AUTHOR.me ? AUTHOR.me : AUTHOR.default, message);
+      setMessage("");
+    }
+    else
+      console.log("Empty message");
   }
   const bot =() => {
     let text = 'Спасибо за отзыв';
@@ -43,7 +48,7 @@ function App() {
           {messageList.map((singlemessage)=> (<Message data={singlemessage}/>))}
         </div>
         <form className="messageForm" onSubmit={submitForm}>                
-          <label htmlFor="text">Сообщение: </label><textarea name="text" id="text"  onChange={handleMessageInput}></textarea>
+          <label htmlFor="text">Сообщение: </label><textarea name="text" id="text" value={message} onChange={handleMessageInput}></textarea>
       
           <button>Click me!</button>
         </form>
