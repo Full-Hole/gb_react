@@ -60,10 +60,6 @@
 }
 .message-wrapper{
   max-width: 350px;
-  border-style: groove;
-    margin: 10px;
-    border-radius: 15px;
-    background-color: #75e4f345;
     margin: 10px 10px 10px auto;
 }
 .message-author {

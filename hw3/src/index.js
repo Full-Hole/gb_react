@@ -12,6 +12,9 @@ const theme = createTheme({
   },
   palette: {
     mode: 'dark',
+    background:{
+      default: '#001E3C'
+    }
   },
 });
 

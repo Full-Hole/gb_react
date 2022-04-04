@@ -2,6 +2,8 @@ import {useEffect,  useState} from 'react';
 import Message from './Message';
 import MessageInput from './MessageInput';
 import './App.css';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
 
 function App() {
   const [messageList, setMessageList] = useState([]);
@@ -44,12 +46,26 @@ function App() {
 
   return (
     <div className="App">
-      <div className='main-container'>
+      <Container maxWidth="sm">
+      <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+      }}
+    >
         <div className="message-list">
           {messageList.map((singlemessage, index)=> (<Message key={index} data={singlemessage}/>))}
         </div>
         <MessageInput onChange={handleMessageInput} onClick={submitForm} value={message}/>
-      </div>
+        </Box>
+      </Container>
     </div>
 );
 }

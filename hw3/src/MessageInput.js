@@ -23,6 +23,7 @@ const MessageInput = (props) => {
                 rows={2}
                 onChange={props.onChange}
                 value={props.value}
+                autoFocus = {true}
             />
             <Button variant="contained" onClick={props.onClick} endIcon={<SendIcon />}>
                 Send
