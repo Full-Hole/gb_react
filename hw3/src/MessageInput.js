@@ -10,7 +10,8 @@ const MessageInput = (props) => {
             sx={{
                 width: 300,
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                marginTop: 2
             }}
             noValidate
             autoComplete="off"

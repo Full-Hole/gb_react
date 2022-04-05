@@ -53,9 +53,9 @@
 }
 .message-list{
   background-color: aliceblue;
-  width: 600px;
+  width: 300px;
   border: 1px solid black;
-  max-height: 600px;
+  max-height: 300px;
   overflow: auto;
 }
 .message-wrapper{

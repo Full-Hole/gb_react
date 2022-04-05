@@ -11,9 +11,9 @@ const theme = createTheme({
     danger: orange[500],
   },
   palette: {
-    mode: 'dark',
+    //mode: 'dark',
     background:{
-      default: '#001E3C'
+      //default: '#001E3C'
     }
   },
 });
