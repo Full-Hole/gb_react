@@ -2,11 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { orange } from '@mui/material/colors';
 //import reportWebVitals from './reportWebVitals';
+
+const theme = createTheme({
+  status: {
+    danger: orange[500],
+  },
+  palette: {
+    //mode: 'dark',
+    background:{
+      //default: '#001E3C'
+    }
+  },
+});
 
 ReactDOM.render(
   <React.StrictMode>
+    <ThemeProvider theme={theme}>
     <App />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
