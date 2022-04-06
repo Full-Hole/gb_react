@@ -6,14 +6,14 @@ import './App.css';
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
+import {AUTHOR} from './constant/common'
 
 
 function App() {
   const [messageList, setMessageList] = useState([]);
-  const [message, setMessage] = useState([]);
+  
   const [chatList, setChatList] = useState([]);
-  const AUTHOR = {default: 'Guest', bot: 'Bot', me: ''};
-  //{ author: '', text: ''}
+  
   function addMessage(author, text) {
     setMessageList([...messageList, { author: author, text: text}])
   }
@@ -22,19 +22,7 @@ function App() {
     setChatList([{chatName: 'first', chatId: '1x'}, {chatName: 'second', chatId: '2x'}])
   }
 
-  const handleMessageInput =(e) =>{
-    setMessage(e.target.value);
-  }
-  const submitForm = (e) => {
-    e.preventDefault();
-    //console.log(e);
-    if(message){
-      addMessage(AUTHOR.me ? AUTHOR.me : AUTHOR.default, message);
-      setMessage("");
-    }
-    else
-      console.log("Empty message");
-  }
+
   const bot =() => {
     let text = 'Спасибо за отзыв';    
       addMessage(AUTHOR.bot, text);    
@@ -42,6 +30,7 @@ function App() {
   useEffect(() => {
     getChatList();
   }, []);
+  
   
   useEffect(() => {
     //getChatList();
@@ -55,14 +44,13 @@ function App() {
   });
 
 
-  
 
   return (
     <div className="App">
       <Container maxWidth="sm" sx={{display: 'flex'}}>
         <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.default', border: 'solid' }}>
           <List>
-            {chatList.map((chat) => (<Chat data={chat}/>))}
+          {chatList.map((chat, index) => (<Chat key={index} data={chat}/>))}
           </List>
         </Box>
         <Box
@@ -81,7 +69,7 @@ function App() {
         <List className="message-list">
           {messageList.map((singlemessage, index)=> (<Message key={index} data={singlemessage}/>))}
         </List>
-        <MessageInput onChange={handleMessageInput} onClick={submitForm} value={message}/>
+        <MessageInput addMessage={addMessage}/>
         </Box>
       </Container>
     </div>
