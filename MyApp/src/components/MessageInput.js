@@ -1,7 +1,7 @@
 import { useRef, useState} from 'react';
 import { Button, Box, TextField } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import {AUTHOR} from './constant/common'
+import {AUTHOR} from '../constant/common'
 
 
 const MessageInput = (props) => {
