@@ -8,10 +8,13 @@ import Message from './Message';
 import {useEffect,  useState} from 'react';
 import {AUTHOR} from '../constant/common'
 
-const Chat = ({data}) => {
+const Chat = (props) => {
+  const {name, messages} = props.chat;
   const [messageList, setMessageList] = useState([]); 
   
+  
   function addMessage(author, text) {
+    //console.log(props);
     setMessageList([...messageList, { author: author, text: text}])
   }
 
@@ -19,6 +22,7 @@ const Chat = ({data}) => {
     let text = 'Спасибо за отзыв';    
       addMessage(AUTHOR.bot, text);    
   }
+
   useEffect(() => {
     //getChatList();
       if(messageList.length && messageList[messageList.length-1].author !== AUTHOR.bot){
@@ -29,6 +33,11 @@ const Chat = ({data}) => {
       }
     
   });
+
+  useEffect(()=>{
+    //console.log(messages);
+    setMessageList(messages)
+  }, [messages])
 
     return (
       <Box
@@ -44,6 +53,7 @@ const Chat = ({data}) => {
         borderRadius: 1,
         p: 3,
       }}>
+        <h1>Chat: {name}</h1>
       <List className="message-list">
         {messageList.map((singlemessage, index)=> (<Message key={index} data={singlemessage}/>))}
       </List>

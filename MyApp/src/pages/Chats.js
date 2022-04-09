@@ -1,21 +1,19 @@
-import {useState} from 'react';
+
 //import Box from '@mui/material/Box';
 //import List from '@mui/material/List';
 import Chat from '../components/Chat';
-import {AUTHOR} from '../constant/common'
 
-const initialChats = {
-    id1: {
-        name: 'Chat 1',
-        messages: [{ author: AUTHOR.bot, text: 'Welcome to Chat1'}]
-    },
-    id2: {
-        name: 'Chat 2',
-        messages: [{ author: AUTHOR.bot, text: 'Welcome to Chat2'}]
+import {useParams } from "react-router-dom";
+
+
+const Chats = ({chatList}) => {
+    let { chatId} = useParams();
+    
+
+    if(!chatList[chatId]) {
+        return (<div>404</div>);
     }
-}
-const Chats = () => {
-    const [chatList, setChatList] = useState([initialChats]);
+
 
     // const getChatList = () => {
     //     setChatList([{chatName: 'first', chatId: '1x'}, {chatName: 'second', chatId: '2x'}])
@@ -23,8 +21,8 @@ const Chats = () => {
     //   useEffect(() => {
     //     getChatList();
     //   }, []);
-    return <div>Chats 
-          <Chat />
+    return <div>
+          <Chat chat={chatList[chatId]}/>
     </div>
 }
 export default Chats;
