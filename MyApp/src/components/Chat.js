@@ -1,43 +1,27 @@
-// import ListItem from '@mui/material/ListItem';
-// import ListItemButton from '@mui/material/ListItemButton';
-// import ListItemText from '@mui/material/ListItemText';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import MessageInput from './MessageInput';
 import Message from './Message';
-import {useEffect,  useState} from 'react';
-import {AUTHOR} from '../constant/common'
+import {useEffect,  } from 'react';
+import {AUTHOR} from '../constant/common';
+import { useOutletContext } from "react-router-dom";
 
 const Chat = (props) => {
-  const {name, messages} = props.chat;
-  const [messageList, setMessageList] = useState([]); 
-  
-  
-  function addMessage(author, text) {
-    //console.log(props);
-    setMessageList([...messageList, { author: author, text: text}])
-  }
-
+  const {chatId} = props;
+  const [chatList, addMessage] = useOutletContext();
   const bot =() => {
     let text = 'Спасибо за отзыв';    
-      addMessage(AUTHOR.bot, text);    
+      addMessage(chatId,{ author: AUTHOR.bot, text: text});    
   }
 
   useEffect(() => {
-    //getChatList();
-      if(messageList.length && messageList[messageList.length-1].author !== AUTHOR.bot){
+      if(chatList[chatId].messages.length && chatList[chatId].messages[chatList[chatId].messages.length-1].author !== AUTHOR.bot){
         let timerId = setTimeout(bot,1500);
         return ()=>{
           clearTimeout(timerId);
         }
-      }
-    
+      }    
   });
-
-  useEffect(()=>{
-    //console.log(messages);
-    setMessageList(messages)
-  }, [messages])
 
     return (
       <Box
@@ -53,15 +37,14 @@ const Chat = (props) => {
         borderRadius: 1,
         p: 3,
       }}>
-        <h1>Chat: {name}</h1>
+        <h1>{chatList[chatId].name}</h1>
       <List className="message-list">
-        {messageList.map((singlemessage, index)=> (<Message key={index} data={singlemessage}/>))}
+        {chatList[chatId].messages.map((singlemessage, index)=> (<Message key={index} data={singlemessage}/>))}
       </List>
-      <MessageInput addMessage={addMessage}/> 
+      <MessageInput addMessage={addMessage} chatId={chatId}/> 
       </Box>
     
     )
-
 }
 
 export default Chat;
