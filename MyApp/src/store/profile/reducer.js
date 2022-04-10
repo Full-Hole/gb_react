@@ -1,12 +1,12 @@
 import { TOGGLE_NAME, TOGGLE_CHECKBOX } from './actions';
 
-const initialState ={
-    showName : false,
+const initialState = {
+    showName: false,
     name: 'Vladimir',
     checkboxState: false,
 };
 
-const profileReducer =(state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
     switch (action.type) {
         case TOGGLE_NAME:
             return {
@@ -18,8 +18,8 @@ const profileReducer =(state = initialState, action) => {
             };
         default:
             return state;
-        
-    
+
+
     }
 };
 export default profileReducer;
