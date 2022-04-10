@@ -10,6 +10,8 @@ import { orange } from '@mui/material/colors';
 import Chats from './pages/Chats';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
+import { Provider } from 'react-redux';
+import store from './store/index'
 
 const theme = createTheme({
   status: {
@@ -25,6 +27,7 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
+    <Provider store={store}>
     <BrowserRouter>
     <ThemeProvider theme={theme}>
     <Routes>
@@ -43,6 +46,7 @@ ReactDOM.render(
         </Routes>
     </ThemeProvider>
     </BrowserRouter>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
