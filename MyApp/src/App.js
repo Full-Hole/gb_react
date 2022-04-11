@@ -10,7 +10,7 @@ import Collapse from '@mui/material/Collapse';
 import ListItemButton from '@mui/material/ListItemButton';
 import { Outlet, Link as RouterLink } from "react-router-dom";
 import { AUTHOR } from './constant/common'
-import * as React from 'react';
+import React from 'react';
 
 const initialChats = {
   id1: {
