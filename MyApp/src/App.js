@@ -38,7 +38,6 @@ function App() {
 
   function ListItemLink(props) {
     const { icon, primary, to } = props;
-
     const renderLink = React.useMemo(
       () =>
         React.forwardRef(function Link(itemProps, ref) {
@@ -46,7 +45,6 @@ function App() {
         }),
       [to],
     );
-
     return (
       <li>
         <ListItem button component={renderLink}>
