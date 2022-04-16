@@ -1,40 +1,53 @@
 import './App.css';
-import Container from '@mui/material/Container';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
+import {
+  Container,
+  TextField,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemButton,
+  DialogTitle,
+  Dialog,
+  Collapse,
+  Button
+} from '@mui/material';
+
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import Collapse from '@mui/material/Collapse';
-import ListItemButton from '@mui/material/ListItemButton';
 import { Outlet, Link as RouterLink } from "react-router-dom";
-import { AUTHOR } from './constant/common'
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addChat } from './store/chats/action';
 
-const initialChats = {
-  id1: {
-    name: 'Chat 1',
-    messages: [{ author: AUTHOR.bot, text: 'Welcome to Chat1' }]
-  },
-  id2: {
-    name: 'Chat 2',
-    messages: [{ author: AUTHOR.bot, text: 'Welcome to Chat2' }]
-  }
-}
+
 
 function App() {
-  const [chatList, setChatList] = React.useState(initialChats);
+  const chats = useSelector((state) => state.chats)
   const [open, setOpen] = React.useState(true);
-  const addMessage = (chatId, message) => {
-
-    setChatList({ ...chatList, [chatId]: { name: chatList[chatId].name, messages: [...chatList[chatId].messages, message] } });
-  }
+  const [visible, setVisible] = React.useState(false);
+  const [chatName, setChatName] = React.useState('');
+  const dispatch = useDispatch();
 
   const handleClick = () => {
-    //console.log(props);
+    console.log(chats);
     setOpen(!open);
   };
+  const handleAddChatDialog = () => {
+    setVisible(true);
+  }
+  const handleDialogClose = () => {
+    setVisible(false);
+    setChatName('');
+  }
+  const handleChatName = (e) => {
+    setChatName(e.target.value);
+  }
+  const handleAddNewChat = () => {
+    dispatch(addChat(chatName));
+    handleDialogClose();
+
+  }
 
   function ListItemLink(props) {
     const { icon, primary, to } = props;
@@ -61,19 +74,26 @@ function App() {
         <List>
           <ListItemLink to="/" primary="Home" />
           <ListItemLink to="profile" primary="Profile" />
-
           <ListItemButton onClick={handleClick}>
             <ListItemText primary="Chats" />
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              {Object.keys(chatList).map((id, key) => (<ListItemLink to={'chats/' + id} primary={chatList[id].name} key={key} />))}
-
+              {chats.chatList.map((chat) => (<ListItemLink to={'chats/' + chat.id} primary={chat.name} key={chat.id} />))}
+              <ListItemButton onClick={handleAddChatDialog}><ListItemText primary="Add Chat" /></ListItemButton>
+              <Dialog open={visible} onClose={handleDialogClose}>
+                <DialogTitle>Please enter a name for new chat</DialogTitle>
+                <TextField
+                  placeholder="Chat name"
+                  value={chatName}
+                  onChange={handleChatName} />
+                <Button variant="contained" onClick={handleAddNewChat}>Сохранить</Button>
+              </Dialog>
             </List>
           </Collapse>
         </List>
-        <Outlet context={[chatList, addMessage]} />
+        <Outlet />
 
       </Container>
     </div>
@@ -83,3 +103,5 @@ function App() {
 export default App;
 
 
+//{Object.keys(chatList).map((id, key) => (<ListItemLink to={'chats/' + id} primary={chatList[id].name} key={key} />))}
+//context={[chatList, addMessage]}
