@@ -29,7 +29,12 @@ const chatsReducer = (state = initialState,action) =>{
                 ]
             };
         case DEL_CHAT:
-            return state
+            //console.log(state);            
+            //let newState = state.chatList.filter(chat => chat.id = action.payload);
+            //console.log(newState);
+            return {...state,
+                chatList: [...state.chatList.filter(chat => chat.id !== action.payload)]
+            }
         default:
             return state;
     }

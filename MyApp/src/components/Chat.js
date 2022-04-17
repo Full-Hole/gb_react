@@ -10,7 +10,9 @@ import { addMessage } from '../store/messages/action';
 const Chat = ({ chat }) => {
   const { id, name } = chat;
   const dispatch = useDispatch()
-  const messageList = useSelector((state) => state.messages.messageList)
+  const allMessageList = useSelector((state) => state.messages.messageList)
+
+  const messageList = allMessageList[id] || [] ;
 
   const bot = () => {
     let text = 'Спасибо за отзыв';
@@ -20,8 +22,10 @@ const Chat = ({ chat }) => {
     dispatch(addMessage(id, message));
   }
 
+
+
   useEffect(() => {
-    if (messageList[id] && messageList[id][messageList[id].length - 1].author !== AUTHOR.bot) {
+    if (messageList.length && messageList[messageList.length - 1].author !== AUTHOR.bot) {
       let timerId = setTimeout(bot, 1500);
       return () => {
         clearTimeout(timerId);
@@ -45,7 +49,7 @@ const Chat = ({ chat }) => {
       }}>
       <h1>{name}</h1>
       <List className="message-list">
-        {messageList[id]?.map((singlemessage) => (<Message key={singlemessage.id} data={singlemessage} />))}
+        {messageList.map((singlemessage) => (<Message key={singlemessage.id} data={singlemessage} />))}
       </List>
       <MessageInput sendMessage={sendMessage} />
     </Box>
