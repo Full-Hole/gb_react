@@ -1,7 +1,8 @@
 import { ADD_CHAT, DEL_CHAT } from "./action";
 
 const initialState = {
-    chatList:[]
+    chatList:[],
+    lastIndex: 0
 };
 /**
  * 
@@ -17,16 +18,17 @@ const initialState = {
 
 const chatsReducer = (state = initialState,action) =>{
     switch (action.type) {
-        case ADD_CHAT:            
+        case ADD_CHAT:
             return {
                  ...state,
                   chatList: [
                       ...state.chatList,
                     {
-                        id: `id${state.chatList.length}`,
+                        id: `id${ state.lastIndex }`,
                         name: action.payload
                     }
-                ]
+                ],
+                lastIndex: state.lastIndex+1
             };
         case DEL_CHAT:
             //console.log(state);            
