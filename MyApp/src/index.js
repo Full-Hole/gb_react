@@ -13,7 +13,8 @@ import Chats from './pages/Chats';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import { Provider } from 'react-redux';
-import store from './store/index'
+import {persistor, store} from './store/index'
+import { PersistGate } from 'redux-persist/integration/react';
 
 const theme = createTheme({
   status: {
@@ -29,7 +30,9 @@ const theme = createTheme({
 
 ReactDOM.render(
   <React.StrictMode>
+    
     <Provider store={store}>
+    <PersistGate persistor={persistor}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
           <Routes>
@@ -48,7 +51,9 @@ ReactDOM.render(
           </Routes>
         </ThemeProvider>
       </BrowserRouter>
+      </PersistGate>
     </Provider>
+   
   </React.StrictMode>,
   document.getElementById('root')
 );

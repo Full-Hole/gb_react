@@ -21,7 +21,7 @@ const initialState = {
 const messagesReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_MESSAGE: {
-            //console.log(action);
+            console.log(action);
             let { chatId, message } = action.payload;
             let oldMessages = state.messageList[chatId] || [];
 
