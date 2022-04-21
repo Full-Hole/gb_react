@@ -51,6 +51,7 @@ function App() {
         <List>
           <ListItemLink to="/" primary="Home" />
           <ListItemLink to="profile" primary="Profile" />
+          <ListItemLink to="gists" primary="Gists" />
           <ListItemButton onClick={handleClick}>
             <ListItemText primary="Chats" />
             {open ? <ExpandLess /> : <ExpandMore />}
