@@ -7,17 +7,17 @@ import { addMessageWithTunk } from '../store/messages/action';
 
 const Chat = ({ chat }) => {
   const { id, name } = chat;
-  console.log(chat);
+  //console.log(chat);
   const dispatch = useDispatch()
   const allMessageList = useSelector((state) => state.messages.messageList)
 
-  const messageList = allMessageList[id] || [] ;
+  const messageList = allMessageList[id] || [];
 
   const sendMessage = (message) => {
-    console.log(id);
+    //console.log(id);
     dispatch(addMessageWithTunk(id, message));
   }
- 
+
   return (
     <Box
       sx={{
