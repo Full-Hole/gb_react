@@ -16,6 +16,8 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './store/index'
 import { PersistGate } from 'redux-persist/integration/react';
 import Gists from './pages/Gists';
+import Login from './pages/Login';
+import Registration from './pages/Registration';
 
 const theme = createTheme({
   status: {
@@ -39,6 +41,8 @@ ReactDOM.render(
             <Routes>
               <Route path="/" element={<App />}>
                 <Route index element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/registration" element={<Registration />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/gists" element={<Gists />} />
                 <Route path="/chats" element={<Chats />}>
