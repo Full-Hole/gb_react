@@ -1,21 +1,20 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import firebase from "../services/firebaseConfig";
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { async } from "@firebase/util";
 
 const AuthContext = React.createContext();
 
-export function AuthProvider({children}) {
+export function AuthProvider({ children }) {
     const [user, setUser] = useState();
 
     const signin = async (newUser, callback) => {
         const auth = getAuth(firebase);
         await signInWithEmailAndPassword(auth, newUser.email, newUser.password);
         await onAuthStateChanged(auth, (authUser) => {
-            if(authUser) {
+            if (authUser) {
                 setUser(authUser);
             }
-        })
+        });
         callback();
     };
 
@@ -26,7 +25,7 @@ export function AuthProvider({children}) {
         callback();
     };
 
-    const value = { user, signin, signout};
+    const value = { user, signin, signout };
 
     return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -34,3 +33,5 @@ export function AuthProvider({children}) {
 const useAuth = () => {
     return React.useContext(AuthContext)
 }
+
+export default useAuth;
