@@ -2,6 +2,8 @@ import './App.css';
 import {
   Container,
   List,
+  ListItem,
+  ListItemIcon,
   ListItemText,
   ListItemButton,
   Collapse,
@@ -9,35 +11,45 @@ import {
 
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import { Outlet } from "react-router-dom";
+import { Outlet, Link as RouterLink } from "react-router-dom";
 import React from 'react';
 import ChatListController from './components/ChatListController';
-import ListItemLink from './components/ListItemLink';
-import useAuth from './hooks/AuthProvider';
 
 
 
 function App() {
   const [open, setOpen] = React.useState(true);
-  const auth=useAuth();
 
   const handleClick = () => {
     setOpen(!open);
   };
-  const handleExit = () => {
-    console.log('Nop');
-  };
 
-  const checkAuth = () => {
-    if(!auth.user){
-      return (
-        <>
-        <ListItemLink to="login" primary="Login" />
-          <ListItemLink to="registration" primary="Registration" />
-          </>
-      )
-    } else {
-      return <>
+  function ListItemLink(props) {
+    const { icon, primary, to } = props;
+    const renderLink = React.useMemo(
+      () =>
+        React.forwardRef(function Link(itemProps, ref) {
+          return <RouterLink to={to} ref={ref} {...itemProps} role={undefined} />;
+        }),
+      [to],
+    );
+    return (
+      <li>
+        <ListItem button
+          component={renderLink}
+        >
+          {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+          <ListItemText primary={primary} />
+        </ListItem>
+      </li>
+    );
+  }
+
+  return (
+    <div className="App">
+      <Container maxWidth="sm" sx={{ display: 'flex' }}>
+        <List>
+          <ListItemLink to="/" primary="Home" />
           <ListItemLink to="profile" primary="Profile" />
           <ListItemLink to="gists" primary="Gists" />
           <ListItemButton onClick={handleClick}>
@@ -47,20 +59,6 @@ function App() {
           <Collapse in={open} timeout="auto" /*unmountOnExit*/ >
             <ChatListController />
           </Collapse>
-          <ListItemButton onClick={handleExit}>
-            <ListItemText primary="Выход" />
-          </ListItemButton>
-      </>
-    }
-  }
-
-  return (
-    <div className="App">
-      <Container maxWidth="sm" sx={{ display: 'flex' }}>
-        <List>          
-          <ListItemLink to="/" primary="Home" />          
-          {checkAuth()}
-          
         </List>
         <Outlet />
 
