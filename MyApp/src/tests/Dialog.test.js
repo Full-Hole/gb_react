@@ -2,7 +2,7 @@
 import { render } from "@testing-library/react";
 import FormDialog from "../components/Dialog";
 
-describe('Test login page', ()=>{
+describe('Test dialog window', ()=>{
     it('snapsot test', ()=>{
         const component = render(<FormDialog open={true} message={'Hello'}/>);
 
